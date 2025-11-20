@@ -34,3 +34,43 @@ This is a complete E-Commerce application built with vanilla PHP using a custom 
 - `app/`: Core application code (Controllers, Models, Views).
 - `public/`: Public entry point (`index.php`) and assets.
 - `database.sql`: Database schema.
+
+## Hostinger Deployment Guide
+
+1.  **Create Database**
+    *   Log in to Hostinger hPanel.
+    *   Go to **Databases** -> **Management**.
+    *   Create a new MySQL Database. Note down the **Database Name**, **Database User**, and **Password**.
+    *   Open **phpMyAdmin** for the new database.
+    *   Import the `database.sql` file provided in this project.
+
+2.  **Configure Application**
+    *   Open `app/Config/Database.php`.
+    *   Change `$dbDriver = 'sqlite';` to `$dbDriver = 'mysql';`.
+    *   Update `$mysqlConfig` with your Hostinger database details:
+        ```php
+        $mysqlConfig = [
+            'host' => 'localhost',
+            'dbname' => 'u123456789_your_db_name',
+            'user' => 'u123456789_your_db_user',
+            'password' => 'your_password'
+        ];
+        ```
+
+3.  **Upload Files**
+    *   Use the **File Manager** or FTP.
+    *   Navigate to `public_html`.
+    *   **Recommended Structure:**
+        *   Create a folder named `private_app` *outside* `public_html` (e.g., `/home/u123456/domains/domain.com/private_app`) and upload the contents of the `app` folder there.
+        *   Upload the contents of the `public` folder (index.php, assets, .htaccess) directly into `public_html`.
+        *   Edit `public_html/index.php` and update the require paths:
+            ```php
+            // Change from:
+            require_once __DIR__ . '/../app/Core/Router.php';
+            // To (example):
+            require_once __DIR__ . '/../private_app/Core/Router.php';
+            ```
+    *   **Simple Structure (Alternative):**
+        *   Upload the entire project folder into `public_html`.
+        *   Your site will be at `yourdomain.com/public`.
+        *   To fix this, move contents of `public` to `public_html` and keep `app` in `public_html` as well. This is less secure but easier.

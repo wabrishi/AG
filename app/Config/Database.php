@@ -11,18 +11,35 @@ class Database {
 
     private function __construct() {
         try {
-            // Use SQLite for development/sandbox, MySQL for production
-            // In a real app, these would come from .env
-            $dbDriver = getenv('DB_DRIVER') ?: 'sqlite'; // 'mysql' or 'sqlite'
+            // =================================================================
+            // DATABASE CONFIGURATION
+            // =================================================================
+
+            // Set this to 'mysql' for Hostinger/Production
+            $dbDriver = 'sqlite'; // Options: 'sqlite', 'mysql'
+
+            // MySQL Credentials (Fill this in for Hostinger)
+            $mysqlConfig = [
+                'host' => 'localhost',
+                'dbname' => 'u123456789_database_name',
+                'user' => 'u123456789_database_user',
+                'password' => 'YourPasswordHere'
+            ];
+
+            // Environment Variable Overrides (Optional)
+            if (getenv('DB_DRIVER')) $dbDriver = getenv('DB_DRIVER');
+
+            // =================================================================
 
             if ($dbDriver === 'sqlite') {
                 $dbPath = __DIR__ . '/../../database.sqlite';
                 $this->pdo = new PDO("sqlite:$dbPath");
             } else {
-                $host = getenv('DB_HOST') ?: 'localhost';
-                $db   = getenv('DB_NAME') ?: 'ecommerce_db';
-                $user = getenv('DB_USER') ?: 'root';
-                $pass = getenv('DB_PASS') ?: '';
+                $host = getenv('DB_HOST') ?: $mysqlConfig['host'];
+                $db   = getenv('DB_NAME') ?: $mysqlConfig['dbname'];
+                $user = getenv('DB_USER') ?: $mysqlConfig['user'];
+                $pass = getenv('DB_PASS') ?: $mysqlConfig['password'];
+
                 $charset = 'utf8mb4';
                 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
                 $this->pdo = new PDO($dsn, $user, $pass);
