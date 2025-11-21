@@ -1,0 +1,1 @@
+{"version":2,"defects":[],"times":{"Tests\\Feature\\UserFlowTest::testUserRegistration":0.104,"Tests\\Feature\\UserFlowTest::testUserLogin":0.077,"Tests\\Feature\\UserFlowTest::testAdminFlow":0.089,"Tests\\Feature\\UserFlowTest::testProductSearch":0.002}}

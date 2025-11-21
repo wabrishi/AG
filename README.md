@@ -10,7 +10,9 @@ This is a complete E-Commerce application built with vanilla PHP using a custom 
 ## Installation
 
 1.  **Clone the repository**
-2.  **Database Setup**
+2.  **Install Dependencies**
+    *   Run `composer install` to install PHPUnit and other dependencies.
+3.  **Database Setup**
     *   **For MySQL:** Import `database.sql` into your MySQL database. Update `app/Config/Database.php` with your credentials.
     *   **For Development (SQLite):** Run `php setup_database.php`. This will create a `database.sqlite` file.
 3.  **Serve the application**
@@ -33,7 +35,22 @@ This is a complete E-Commerce application built with vanilla PHP using a custom 
 ## Directory Structure
 - `app/`: Core application code (Controllers, Models, Views).
 - `public/`: Public entry point (`index.php`) and assets.
+- `tests/`: PHPUnit tests.
+- `vendor/`: Composer dependencies.
 - `database.sql`: Database schema.
+
+## Testing
+
+To run the automated test suite:
+
+1.  Start the development server:
+    ```bash
+    php -S localhost:8080 -t public public/index.php > server.log 2>&1 &
+    ```
+2.  Run PHPUnit:
+    ```bash
+    ./vendor/bin/phpunit
+    ```
 
 ## Hostinger Deployment Guide
 

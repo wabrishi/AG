@@ -1,0 +1,5 @@
+/vendor
+/composer.phar
+server.log
+database.sqlite
+public/uploads/
